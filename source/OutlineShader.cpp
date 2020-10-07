@@ -83,7 +83,7 @@ void OutlineShader::Init()
 		"  {\n"
 		"    for(int dx = -1; dx <= 1; ++dx)\n"
 		"    {\n"
-		"      vec2 center = fragTexCoord + .618034 * off * vec2(dx, dy);\n"
+		"      vec2 center = fragTexCoord + off * vec2(dx, dy);\n"
 		"      float nw = dot(texture(tex, vec3(center + vec2(-off.x, -off.y), layer)), weight);\n"
 		"      float ne = dot(texture(tex, vec3(center + vec2(off.x, -off.y), layer)), weight);\n"
 		"      float sw = dot(texture(tex, vec3(center + vec2(-off.x, off.y), layer)), weight);\n"
@@ -159,8 +159,8 @@ void OutlineShader::Draw(const Sprite *sprite, const Point &pos, const Point &si
 	glUniform2fv(scaleI, 1, scale);
 	
 	GLfloat off[2] = {
-		static_cast<float>(.5 / size.X()),
-		static_cast<float>(.5 / size.Y())};
+		static_cast<float>(0.5 * .618034 / size.X()),
+		static_cast<float>(0.5 * .618034 / size.Y())};
 	glUniform2fv(offI, 1, off);
 	
 	glUniform1f(frameI, frame);
